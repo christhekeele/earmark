@@ -1,6 +1,6 @@
 defmodule Acceptance.HorizontalRulesTest do
   use ExUnit.Case
-  
+
   import Support.Helpers, only: [as_html: 1]
 
   # describe "Horizontal rules" do
@@ -32,6 +32,14 @@ defmodule Acceptance.HorizontalRulesTest do
     test "not in code, second line" do
       markdown = "Foo\n    ***\n"
       html     = "<p>Foo</p>\n<pre><code>***</code></pre>\n"
+      messages = []
+
+      assert as_html(markdown) == {:ok, html, messages}
+    end
+
+    test "not in lieu of header" do
+      markdown = "foo\n___\n"
+      html     = "<h1>foo</h1>\n"
       messages = []
 
       assert as_html(markdown) == {:ok, html, messages}
